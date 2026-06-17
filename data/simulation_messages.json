@@ -1,0 +1,76 @@
+[
+  {
+    "thread_id": "thread_001",
+    "messages": [
+      {
+        "id": "msg_001",
+        "parent_message_id": null,
+        "author": "alice",
+        "timestamp": "2024-03-01T09:00:00",
+        "content": "Hello, I have a problem with firmware update 2.3.1 on device X200. The installation fails with error 0x80070005.",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_002",
+        "parent_message_id": "msg_001",
+        "author": "bob",
+        "timestamp": "2024-03-01T09:15:00",
+        "content": "Are you running as admin on the machine?",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_003",
+        "parent_message_id": "msg_001",
+        "author": "alice",
+        "timestamp": "2024-03-01T09:20:00",
+        "content": "Yes, I am an admin. I also tried restarting but still the same error.",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_004",
+        "parent_message_id": "msg_001",
+        "author": "carol",
+        "timestamp": "2024-03-01T09:35:00",
+        "content": "I had the same issue last week. You need to disable the antivirus before running the update, that's the cause.",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_005",
+        "parent_message_id": "msg_001",
+        "author": "alice",
+        "timestamp": "2024-03-01T09:50:00",
+        "content": "It worked! Thanks Carol, it was indeed the antivirus blocking it.",
+        "channel": "testing-examples"
+      }
+    ]
+  },
+  {
+    "thread_id": "thread_002",
+    "messages": [
+      {
+        "id": "msg_006",
+        "parent_message_id": null,
+        "author": "dave",
+        "timestamp": "2024-03-02T10:00:00",
+        "content": "How do we configure the timeout on the NX-400 network module? The documentation is not clear.",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_007",
+        "parent_message_id": "msg_006",
+        "author": "eve",
+        "timestamp": "2024-03-02T10:30:00",
+        "content": "In the config.yaml file you have the parameter network.timeout in milliseconds. Set it to 5000 to start with.",
+        "channel": "testing-examples"
+      },
+      {
+        "id": "msg_008",
+        "parent_message_id": "msg_006",
+        "author": "dave",
+        "timestamp": "2024-03-02T10:45:00",
+        "content": "Perfect thanks, that was it.",
+        "channel": "testing-examples"
+      }
+    ]
+  }
+]
