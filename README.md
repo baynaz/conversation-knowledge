@@ -278,21 +278,6 @@ The LLM extraction and RAG layers will be implemented after validating the inges
 
 ---
 
-# Future Work
-
-- Microsoft Graph API integration
-- Automatic thread reconstruction
-- Knowledge extraction using LLMs
-- Confirmed solution detection
-- Knowledge validation scoring
-- Deduplication engine
-- Embedding generation
-- Semantic search
-- RAG chatbot
-- Monitoring and observability
-
----
-
 # Key Design Principle
 
 The chatbot is not the product.
