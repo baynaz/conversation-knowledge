@@ -1,0 +1,47 @@
+[
+  {
+    "id": "msg_001",
+    "thread_id": "thread_001",
+    "parent_message_id": null,
+    "author": "Alice Martin",
+    "content": "Hey, my laptop won't connect to the VPN since this morning, getting error 800",
+    "channel": "it-support",
+    "timestamp": "2024-01-15T09:00:00"
+  },
+  {
+    "id": "msg_002",
+    "thread_id": "thread_001",
+    "parent_message_id": "msg_001",
+    "author": "Bob Lefevre",
+    "content": "Try restarting the Cisco AnyConnect service in Windows services",
+    "channel": "it-support",
+    "timestamp": "2024-01-15T09:05:00"
+  },
+  {
+    "id": "msg_003",
+    "thread_id": "thread_001",
+    "parent_message_id": "msg_001",
+    "author": "Alice Martin",
+    "content": "Still not working, same error",
+    "channel": "it-support",
+    "timestamp": "2024-01-15T09:08:00"
+  },
+  {
+    "id": "msg_004",
+    "thread_id": "thread_001",
+    "parent_message_id": "msg_001",
+    "author": "Bob Lefevre",
+    "content": "Uninstall and reinstall AnyConnect completely, then reboot",
+    "channel": "it-support",
+    "timestamp": "2024-01-15T09:15:00"
+  },
+  {
+    "id": "msg_005",
+    "thread_id": "thread_001",
+    "parent_message_id": "msg_001",
+    "author": "Alice Martin",
+    "content": "That fixed it, thanks!",
+    "channel": "it-support",
+    "timestamp": "2024-01-15T09:30:00"
+  }
+]

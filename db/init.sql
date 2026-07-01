@@ -17,7 +17,7 @@ CREATE TABLE raw_messages (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 
     thread_id TEXT NOT NULL,
-    source_message_id TEXT UNIQUE
+    source_message_id TEXT UNIQUE,
     parent_message_id UUID,
     author TEXT NOT NULL,
     timestamp TIMESTAMP NOT NULL,

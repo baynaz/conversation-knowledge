@@ -1,104 +1,83 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import psycopg2
-from datetime import datetime
-import uuid
-from uuid import uuid4
-from psycopg2 import connect
-import json
+from fastapi import FastAPI, HTTPException
+from psycopg2.extras import RealDictCursor
 
 from models.schemas import TeamsMessage
-from services.thread_builder import build_thread
+from db.connection import get_db_connection
+from services.thread_builder import build_thread, thread_to_text
 from services.knowledge_extractor import extract_knowledge
+from services.knowledge_store import store_knowledge_object
+from services.embedding_service import embed_knowledge_object
+from services.qdrant_service import index_knowledge_object
 
+app = FastAPI(title="conversation-knowledge")
 
-app = FastAPI()
+INSERT_THREAD = """
+INSERT INTO threads (id) VALUES (%s) ON CONFLICT (id) DO NOTHING;
+"""
 
+INSERT_MESSAGE = """
+INSERT INTO raw_messages (thread_id, source_message_id, parent_message_id, author, timestamp, content, channel)
+VALUES (%s, %s,
+    (SELECT id FROM raw_messages WHERE source_message_id = %s),
+    %s, %s, %s, %s)
+RETURNING id;
+"""
 
-# DB connection
-conn = psycopg2.connect(
-    dbname="knowledge_db",
-    user="admin",
-    password="admin",
-    host="localhost",
-    port="5432"
-)
-
-
-@app.get("/")
-def root():
-    return {"status": "running"}
 
 @app.post("/ingest/teams")
-def ingest_message(msg: TeamsMessage):
-    cur = conn.cursor()
-
-    query = """
-    INSERT INTO raw_messages
-    (id, thread_id, parent_message_id, author, timestamp, content, channel)
-    VALUES (%s,%s,%s,%s,%s,%s,%s)
+def ingest_teams_message(message: TeamsMessage):
+    """Stores a raw Teams message. parent_message_id in the payload is the
+    SOURCE id of the parent (e.g. 'msg_001'); we resolve it to our internal
+    UUID via source_message_id.
     """
+    with get_db_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(INSERT_THREAD, (message.thread_id,))
+            cur.execute(
+                INSERT_MESSAGE,
+                (
+                    message.thread_id,
+                    message.id,
+                    message.parent_message_id,
+                    message.author,
+                    message.timestamp,
+                    message.content,
+                    message.channel,
+                ),
+            )
+            row = cur.fetchone()
 
-    cur.execute(query, (
-        str(uuid.uuid4()),
-        msg.thread_id,
-        msg.parent_message_id,
-        msg.author,
-        msg.timestamp,
-        msg.content,
-        msg.channel
-    ))
+    return {"status": "stored", "message_id": str(row["id"])}
 
-    conn.commit()
-    cur.close()
-
-    return {"status": "stored"}
- 
 
 @app.post("/extract-knowledge/{thread_id}")
-def extract_thread_knowledge(thread_id: str):
+def extract_knowledge_for_thread(thread_id: str):
+    """Runs the full extraction pipeline for a thread: reconstruct -> extract -> store -> embed -> index."""
+    messages = build_thread(thread_id)
+    if not messages:
+        raise HTTPException(status_code=404, detail=f"Thread '{thread_id}' not found")
 
-    # Build thread
-    thread_text = build_thread(conn, thread_id)
+    thread_text = thread_to_text(messages)
 
-    if not thread_text:
-        return {
-            "error": "Thread not found"
-        }
+    try:
+        knowledge = extract_knowledge(thread_id, thread_text)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"LLM extraction failed: {e}")
 
-    # LLM extraction
-    knowledge = extract_knowledge(thread_text)
+    stored = store_knowledge_object(knowledge)
+    vector = embed_knowledge_object(stored)
+    index_knowledge_object(stored, vector)
 
-    if "error" in knowledge:
-        return knowledge
+    return stored
 
-    # Store result
-    cur = conn.cursor()
 
-    cur.execute("""
-        INSERT INTO knowledge_objects (
-            id,
-            thread_id,
-            problem,
-            context,
-            symptoms,
-            solutions_tried,
-            confirmed_solution,
-            technology
-        )
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-    """, (
-        str(uuid4()),
-        thread_id,
-        knowledge.get("problem"),
-        knowledge.get("context"),
-        json.dumps(knowledge.get("symptoms", [])),
-        json.dumps(knowledge.get("solutions_tried", [])),
-        knowledge.get("confirmed_solution"),
-        knowledge.get("technology")
-    ))
-
-    conn.commit()
-    cur.close()
-
-    return knowledge
+@app.post("/dev/reset")
+def reset_db():
+    """Wipes all tables. Dev only — never expose this in production."""
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                TRUNCATE threads, raw_messages, classified_messages, knowledge_objects
+                RESTART IDENTITY CASCADE;
+            """)
+    return {"status": "reset"}
