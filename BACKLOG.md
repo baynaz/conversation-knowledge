@@ -1,6 +1,4 @@
 # Backlog — conversation-knowledge
-
-Scope, sprint by sprint. Check off items as they're done.
 ---
 
 ## Sprint 0 — Setup
@@ -105,7 +103,6 @@ Scope, sprint by sprint. Check off items as they're done.
 
 - [ ] Deduplication of knowledge objects describing the same problem
 - [ ] Caching layer (Redis) for repeated RAG queries
-- [ ] Multilingual handling (French + English in the same channel)
 - [ ] Full RAG assistant + auto-send answer to Teams channel
 
 ---
