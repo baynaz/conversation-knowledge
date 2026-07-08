@@ -3,11 +3,11 @@
 
 ## Sprint 0 — Setup
 
-- [ ] Repo structure (`services/`, `simulation/`, `db/`, `models/`, `tests/`)
-- [ ] `pyproject.toml` with uv, deps (fastapi, psycopg2/asyncpg, qdrant-client, ollama, sentence-transformers)
-- [ ] `docker-compose.yml` — PostgreSQL + Qdrant
-- [ ] `db/init.sql` — schema (threads, raw_messages, classified_messages, knowledge_objects)
-- [ ] One hardcoded simulation thread: `simulation/scenarios/happy_path.json`
+- [x] Repo structure (`services/`, `simulation/`, `db/`, `models/`, `tests/`)
+- [x] `pyproject.toml` with uv, deps (fastapi, psycopg2/asyncpg, qdrant-client, ollama, sentence-transformers)
+- [x] `docker-compose.yml` — PostgreSQL + Qdrant
+- [x] `db/init.sql` — schema (threads, raw_messages, classified_messages, knowledge_objects)
+- [x] One hardcoded simulation thread: `simulation/scenarios/happy_path.json`
 
 **Definition of done:** `docker-compose up` brings up Postgres + Qdrant, `init.sql` runs without errors, tables exist.
 
