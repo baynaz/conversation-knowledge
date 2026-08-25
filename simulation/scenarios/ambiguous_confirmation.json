@@ -1,0 +1,29 @@
+[
+  {
+    "id": "msg_501",
+    "thread_id": "thread_006",
+    "parent_message_id": null,
+    "author": "Laura Simon",
+    "content": "Excel freezes whenever I try to open files from SharePoint directly",
+    "channel": "test_example_ambiguous",
+    "timestamp": "2024-01-18T14:00:00"
+  },
+  {
+    "id": "msg_502",
+    "thread_id": "thread_006",
+    "parent_message_id": "msg_501",
+    "author": "Marc Leroy",
+    "content": "Download the file locally first then open it, should fix the freeze",
+    "channel": "test_example_ambiguous",
+    "timestamp": "2024-01-18T14:10:00"
+  },
+  {
+    "id": "msg_503",
+    "thread_id": "thread_006",
+    "parent_message_id": "msg_501",
+    "author": "Laura Simon",
+    "content": "ok",
+    "channel": "test_example_ambiguous",
+    "timestamp": "2024-01-18T14:12:00"
+  }
+]

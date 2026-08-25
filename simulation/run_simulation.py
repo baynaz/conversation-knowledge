@@ -18,30 +18,26 @@ def load_scenario(name: str) -> list[dict]:
 
 def simulate(scenario_name: str) -> None:
     messages = load_scenario(scenario_name)
-    thread_ids_seen = set()
 
     with httpx.Client(timeout=120.0) as client:
-        # wipe before each simulation run so we always start clean
-        print(" resetting database...")
+        print("-> resetting database...")
         client.post(f"{FASTAPI_BASE}/dev/reset")
-        print(" done\n")
+        print("   done\n")
 
         for msg in messages:
-            print(f"-> sending [{msg['id']}] {msg['author']}: {msg['content'][:60]}")
+            label = f"[{msg['id']}] {msg['author']}: {msg['content'][:50]}"
+            print(f"-> {label}")
             response = client.post(f"{FASTAPI_BASE}/ingest/teams", json=msg)
             response.raise_for_status()
-            print(f"   {response.status_code} {response.json()}")
-            thread_ids_seen.add(msg["thread_id"])
-            time.sleep(0.3)
+            result = response.json()
 
-        print("\n--- triggering extraction for each thread seen ---")
-        for thread_id in thread_ids_seen:
-            print(f"-> extracting knowledge for thread '{thread_id}'")
-            response = client.post(f"{FASTAPI_BASE}/extract-knowledge/{thread_id}")
-            if response.status_code != 200:
-                print(f"   FAILED [{response.status_code}]: {response.text}")
-                continue
-            print(f"   {json.dumps(response.json(), indent=2, default=str)}")
+            # show what the pipeline did with this message
+            print(f"   author stored      : {result['author_stored']}")
+            print(f"   role               : {result['role']} (confidence={result['confidence']:.2f})")
+            if result.get("extraction_triggered"):
+                print(f"   extraction         : AUTO-TRIGGERED ✓")
+            print()
+            time.sleep(0.3)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "msg_401",
+    "thread_id": "thread_005",
+    "parent_message_id": null,
+    "author": "Ivan Blanc",
+    "content": "Teams video calls keep dropping after exactly 15 minutes",
+    "channel": "test_example_noisy",
+    "timestamp": "2024-01-17T10:00:00"
+  },
+  {
+    "id": "msg_402",
+    "thread_id": "thread_005",
+    "parent_message_id": "msg_401",
+    "author": "Julia Moreau",
+    "content": "I had something similar last week but it was my wifi",
+    "channel": "test_example_noisy",
+    "timestamp": "2024-01-17T10:05:00"
+  },
+  {
+    "id": "msg_403",
+    "thread_id": "thread_005",
+    "parent_message_id": "msg_401",
+    "author": "Ivan Blanc",
+    "content": "My wifi seems fine though, other calls work",
+    "channel": "test_example_noisy",
+    "timestamp": "2024-01-17T10:08:00"
+  },
+  {
+    "id": "msg_404",
+    "thread_id": "thread_005",
+    "parent_message_id": "msg_401",
+    "author": "Kevin Durand",
+    "content": "Could be a Teams timeout setting, let me check with the network team",
+    "channel": "test_example_noisy",
+    "timestamp": "2024-01-17T10:15:00"
+  },
+  {
+    "id": "msg_405",
+    "thread_id": "thread_005",
+    "parent_message_id": "msg_401",
+    "author": "Julia Moreau",
+    "content": "We had a similar issue last month, it resolved itself after an update",
+    "channel": "test_example_noisy",
+    "timestamp": "2024-01-17T10:20:00"
+  }
+]

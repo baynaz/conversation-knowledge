@@ -1,0 +1,83 @@
+[
+  {
+    "id": "msg_101",
+    "thread_id": "thread_002",
+    "parent_message_id": null,
+    "author": "Claire Dupont",
+    "content": "Outlook keeps crashing when I open attachments larger than 10MB",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T08:00:00"
+  },
+  {
+    "id": "msg_102",
+    "thread_id": "thread_002",
+    "parent_message_id": "msg_101",
+    "author": "David Chen",
+    "content": "Try disabling hardware acceleration in Outlook settings",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T08:10:00"
+  },
+  {
+    "id": "msg_103",
+    "thread_id": "thread_002",
+    "parent_message_id": "msg_101",
+    "author": "Claire Dupont",
+    "content": "That fixed it, hardware acceleration was the issue!",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T08:20:00"
+  },
+  {
+    "id": "msg_201",
+    "thread_id": "thread_003",
+    "parent_message_id": null,
+    "author": "Emma Rousseau",
+    "content": "Can't access shared drive Z: getting access denied error since the update",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T09:00:00"
+  },
+  {
+    "id": "msg_202",
+    "thread_id": "thread_003",
+    "parent_message_id": "msg_201",
+    "author": "Frank Martin",
+    "content": "Try disconnecting and reconnecting the network drive",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T09:05:00"
+  },
+  {
+    "id": "msg_203",
+    "thread_id": "thread_003",
+    "parent_message_id": "msg_201",
+    "author": "Emma Rousseau",
+    "content": "Still denied. IT reset my permissions and it works now",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T09:30:00"
+  },
+  {
+    "id": "msg_301",
+    "thread_id": "thread_004",
+    "parent_message_id": null,
+    "author": "George Lambert",
+    "content": "Printer on floor 3 not showing up in available printers list",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T10:00:00"
+  },
+  {
+    "id": "msg_302",
+    "thread_id": "thread_004",
+    "parent_message_id": "msg_301",
+    "author": "Helen Petit",
+    "content": "Restart the print spooler service and try adding it again",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T10:08:00"
+  },
+  {
+    "id": "msg_303",
+    "thread_id": "thread_004",
+    "parent_message_id": "msg_301",
+    "author": "George Lambert",
+    "content": "Restarting spooler worked, printer is visible now thanks",
+    "channel": "test_example_multi",
+    "timestamp": "2024-01-16T10:20:00"
+  }
+]
