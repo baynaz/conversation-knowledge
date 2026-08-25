@@ -17,13 +17,13 @@
 
 **Goal:** Checking that the main idea actually works. If we have a full conversation, it should be turned into a useful piece of knowledge that can be saved and reused later.
 
-- [ ] `POST /ingest/teams` stores raw messages from `happy_path.json`
-- [ ] Thread reconstruction (recursive CTE, ordered by `parent_message_id`)
-- [ ] Knowledge extraction prompt (Ollama) — problem / symptoms / solutions_tried / confirmed_solution
-- [ ] Store result in `knowledge_objects`
-- [ ] Generate embedding (sentence-transformers)
-- [ ] Index embedding in Qdrant
-- [ ] Manual Qdrant query to confirm retrieval returns the right object
+- [ x] `POST /ingest/teams` stores raw messages from `happy_path.json`
+- [x ] Thread reconstruction (recursive CTE, ordered by `parent_message_id`)
+- [x] Knowledge extraction prompt (Ollama) — problem / symptoms / solutions_tried / confirmed_solution
+- [x ] Store result in `knowledge_objects`
+- [x ] Generate embedding (sentence-transformers)
+- [x ] Index embedding in Qdrant
+- [x ] Manual Qdrant query to confirm retrieval returns the right object
 
 **Definition of done:** running `uv run simulation/run_simulation.py happy_path`, query Qdrant manually, getting back a sensible, correctly-structured knowledge object.
 
